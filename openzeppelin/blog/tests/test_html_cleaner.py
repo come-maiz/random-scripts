@@ -8,9 +8,9 @@ import html_cleaner
 class TestHTMLCleaner(testscenarios.WithScenarios, unittest.TestCase):
 
     scenarios = [
-        ('noop', dict(
-            html_input='hola',
-            expected_output='hola')),
+        ('remove id from links', dict(
+            html_input='<a id="test">dummy</a>',
+            expected_output='<a>dummy</a>')),
     ]
 
     def test_clean(self):
