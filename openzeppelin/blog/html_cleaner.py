@@ -4,6 +4,7 @@ import bs4
 def clean(html_string):
     soup = bs4.BeautifulSoup(html_string, 'html.parser')
     soup = _clean_anchors(soup)
+    soup = _clean_classes(soup)
     return str(soup)
 
 def _clean_anchors(soup):
@@ -23,3 +24,13 @@ def _remove_attributes_from_anchor(anchor):
     for attribute in attributes:
         if anchor.has_attr(attribute):
             del anchor[attribute]
+
+def _clean_classes(soup):
+    classes = ['graf', 'graf--p', 'graf--h3', 'graf-after--p']
+    for class_ in classes:
+        elements = soup.select('.' + class_)
+        for element in elements:
+            element['class'].remove(class_)
+            if element['class'] == []:
+                del element['class']
+    return soup
