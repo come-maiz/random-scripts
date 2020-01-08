@@ -26,7 +26,7 @@ def _remove_attributes_from_anchor(anchor):
             del anchor[attribute]
 
 def _clean_classes(soup):
-    classes = ['graf', 'graf--p', 'graf--h3', 'graf-after--p']
+    classes = ['graf', 'graf--p', 'graf--h3', 'graf-after--p', 'graf--h4']
     for class_ in classes:
         elements = soup.select('.' + class_)
         for element in elements:

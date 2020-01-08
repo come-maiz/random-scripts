@@ -24,8 +24,11 @@ class TestHTMLCleaner(testscenarios.WithScenarios, unittest.TestCase):
             html_input='<p class="graf graf--p graf-after--p">dummy</p>',
             expected_output='<p>dummy</p>')),
         ('remove class graf in h3', dict(
-            html_input='<h3 class="graf graf--h3 graf-after--p">dummy</h3>',
-            expected_output='<h3>dummy</h3>')),
+            html_input='<dummy class="graf--h3">dummy</dummy>',
+            expected_output='<dummy>dummy</dummy>')),
+        ('remove class graf in h4', dict(
+            html_input='<dummy class="graf--h4">dummy</dummy>',
+            expected_output='<dummy>dummy</dummy>')),
     ]
 
     def test_clean(self):
