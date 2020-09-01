@@ -13,7 +13,8 @@ path = ARGV[0]
 reaction_names = ARGV[1] ? ARGV[1].split(/\s+/) : AWARDS
 
 def msg_to_text(message, file)
-  "from #{message['user_profile']['name']} in #{file.split('/')[-2]} on #{File.basename(file, '.json')}\n\n#{message['text']}"
+  sender = message['user_profile'].nil? ? 'unknown' : message['user_profile']['name']
+  "from #{sender} in #{file.split('/')[-2]} on #{File.basename(file, '.json')}\n\n#{message['text']}"
 end
 
 def stats(path, reaction_name)
