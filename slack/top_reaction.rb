@@ -26,20 +26,23 @@ def stats(path, reaction_name)
         parsed_json = JSON.parse(File.read(file))
         parsed_json.each do |message|
           if message['type'] == 'message'
-            message['reactions'].each do |reaction|
-              if reaction['name'] == reaction_name
-                reaction_count = reaction['count']
-                if reaction_count == top_count
-                  top_messages.push(msg_to_text(message, file))
-                elsif reaction_count > top_count
-                  top_count = reaction_count
-                  top_messages = [msg_to_text(message, file)]
+            if !message['reactions'].nil?
+              message['reactions'].each do |reaction|
+                if reaction['name'] == reaction_name
+                  reaction_count = reaction['count']
+                  if reaction_count == top_count
+                    top_messages.push(msg_to_text(message, file))
+                  elsif reaction_count > top_count
+                    top_count = reaction_count
+                    top_messages = [msg_to_text(message, file)]
+                  end
                 end
               end
             end
           end
         end
       rescue => e
+        puts e
       end
     end
   end
